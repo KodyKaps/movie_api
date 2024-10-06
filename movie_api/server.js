@@ -5,7 +5,7 @@ const path = require('path');
 
 
 function logRequest(requestUrl) {
-    const timestamp = new Date().toISOString(); // Get current timestamp in ISO format
+    const timestamp = new Date().toISOString(); 
     const logEntry = `Time: ${timestamp} | URL: ${requestUrl}\n`;
 
 
