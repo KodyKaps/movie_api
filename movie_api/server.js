@@ -7,7 +7,7 @@ const path = require('path');
 function logRequest(requestUrl) {
     const timestamp = new Date().toISOString(); 
     const logEntry = `Time: ${timestamp} | URL: ${requestUrl}\n`;
-    new Date().getTime();
+    
 
 
     fs.appendFile('log.txt', logEntry, (err) => {
