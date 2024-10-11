@@ -3,6 +3,8 @@ const path = require('path');
 const app = express();
 const port = 8080;
 
+app.use(morgan('combined'));
+
 const topMovies = [
     { title: "The Shawshank Redemption", year: 1994 },
     { title: "The Godfather", year: 1972 },
@@ -20,6 +22,15 @@ const topMovies = [
 app.get('/movies', (req, res) => {
     res.json(topMovies);
 });
+
+app.get('/', (req, res) => {
+    res.send("Welcome to the Movie API! Access /movies to see the top 10 movies.");
+  });
+
+  app.use((err, req, res, next) => {
+    console.error(`Error: ${err.message}`);
+    res.status(500).send("Something went wrong! Please try again later.");
+  });
 
 
 app.listen(port, () => {
