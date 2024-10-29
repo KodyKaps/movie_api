@@ -1,6 +1,8 @@
 //Import library dependencies
 const express = require('express');
 const morgan = require('morgan');
+const mongoose = require('mongoose')
+
 //load config
 require('dotenv').config()
 
@@ -18,6 +20,11 @@ const MONGO_URI = process.env.MONGO_URI
 
 //Apply middleware
 app.use(morgan('combined'));
+
+//connect to database
+mongoose.connect(MONGO_URI)
+  .then(() => console.log("Connected to mongo db"))
+  .catch(err => console.error("Error connecting to mongo db", err))
 
 //Define routes - requests I know how to handle
 

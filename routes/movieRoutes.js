@@ -2,6 +2,9 @@ const express = require('express')
 //load specific part of express
 const router = express.Router()
 
+//load model
+const MovieModel = require('../models/movieModel')
+
 const topMovies = [
     { title: "The Shawshank Redemption", year: 1994 },
     { title: "The Godfather", year: 1972 },
@@ -18,13 +21,17 @@ const topMovies = [
 //use router insterad of app for clean code
 
 // Return a list of ALL movies to the user;
-router.get('/', (req, res) => {
-    res.send(topMovies);
+router.get('/', async (req, res) => {
+    let movies = await MovieModel.find()
+    res.send(movies)
 });
 
 // Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user;
-router.get('/title', (req, res) => {
-    res.send("some data");
+router.get('/:title', async (req, res) => {
+    let title = req.params.title
+    console.log("movie title", title)
+    let movie = await MovieModel.find({Title: title})
+    res.send(movie);
 });
 
 module.exports = router;
