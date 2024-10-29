@@ -1,7 +1,8 @@
 //Import library dependencies
 const express = require('express');
-const path = require('path');
 const morgan = require('morgan');
+//load config
+require('dotenv').config()
 
 //App dependencies
 const movieRoutes = require('./routes/movieRoutes')
@@ -10,7 +11,10 @@ const genreRoutes = require('./routes/genreRoutes')
 
 //create an app instance
 const app = express();
-const port = 8080;
+
+//define config
+const PORT = process.env.PORT;
+const MONGO_URI = process.env.MONGO_URI
 
 //Apply middleware
 app.use(morgan('combined'));
@@ -38,6 +42,6 @@ app.use((err, req, res, next) => {
 });
 
 //Listen for requests
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
