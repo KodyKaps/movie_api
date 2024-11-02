@@ -35,3 +35,5 @@ router.get('/:title', async (req, res) => {
 });
 
 module.exports = router;
+
+//Return data about a genre (description) by name/title (e.g., “Thriller”)
