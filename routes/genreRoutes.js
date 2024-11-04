@@ -1,7 +1,7 @@
 const express = require('express')
 //load specific part of express
 const router = express.Router()
-const Genre = require('./genres');
+const GenreModel = require('../models/genreModel')
 
 // Return data about a genre (description) by name/title (e.g., “Thriller”);
 
