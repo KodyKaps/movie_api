@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 
 //load config
 require('dotenv').config()
@@ -10,6 +11,7 @@ require('dotenv').config()
 const movieRoutes = require('./routes/movieRoutes')
 const userRoutes = require('./routes/userRoutes')
 const genreRoutes = require('./routes/genreRoutes')
+const directorRoutes = require('./routes/directorRoutes')
 
 //create an app instance
 const app = express();
@@ -20,6 +22,7 @@ const MONGO_URI = process.env.MONGO_URI
 
 //Apply middleware
 app.use(morgan('combined'));
+app.use(bodyParser.json())
 
 //connect to database
 mongoose.connect(MONGO_URI)
@@ -36,11 +39,8 @@ app.get('/', (req, res) => {
 app.use('/movies', movieRoutes)
 app.use('/users', userRoutes)
 app.use('/genres', genreRoutes)
+app.use('/directors', directorRoutes)
 
-// Return data about a director (bio, birth year, death year) by name;
-app.get('/directors/name', (req, res) => {
-  res.send("some data");
-});
 
 //error handler - anything i am not designed to handle goes here
 app.use((err, req, res, next) => {

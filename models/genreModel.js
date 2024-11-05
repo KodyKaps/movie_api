@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const GenresModel = require('./genreModel')
 const genreSchema = new mongoose.Schema({
   name: {
     type: String,
