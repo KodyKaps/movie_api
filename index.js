@@ -23,6 +23,7 @@ const MONGO_URI = process.env.MONGO_URI
 //Apply middleware
 app.use(morgan('combined'));
 app.use(bodyParser.json())
+let auth = require('./auth/auth')(app)
 
 //connect to database
 mongoose.connect(MONGO_URI)

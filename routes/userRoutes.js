@@ -1,4 +1,5 @@
 const express = require('express')
+const passport = require('passport');
 //load specific part of express
 const router = express.Router()
 
@@ -6,7 +7,7 @@ const router = express.Router()
 const UserModel = require('../models/userModel')
 
 //For testing only
-router.get('/', async (req, res) => {
+router.get('/', passport.authenticate('jwt', { session: false }),async (req, res) => {
     let users = await UserModel.find()
     res.send(users)
 })
@@ -31,12 +32,12 @@ router.post('/', async (req, res) => {
     
 });
 // Allow users to update their user info (username);
-router.put('/:userId', (req, res) => {
+router.put('/:userId', passport.authenticate('jwt', { session: false }),(req, res) => {
     res.send("some data");
 });
 
 // Allow existing users to deregister (showing only a text that a user email has been removed—more on this later).
-router.delete('/:userId', async (req, res) => {
+router.delete('/:userId', passport.authenticate('jwt', { session: false }),async (req, res) => {
     try {
         //get the user
         let userId =req.params.userId
@@ -56,7 +57,7 @@ router.delete('/:userId', async (req, res) => {
 });
 
 // Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later);
-router.post('/:userId/favorite-movies', async(req, res) => {
+router.post('/:userId/favorite-movies',passport.authenticate('jwt', { session: false }), async(req, res) => {
     try {
         //get the user
         let userId =req.params.userId
@@ -79,7 +80,7 @@ router.post('/:userId/favorite-movies', async(req, res) => {
 });
 
 // Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later);
-router.delete('/:userId/favorite-movies', async (req, res) => {
+router.delete('/:userId/favorite-movies', passport.authenticate('jwt', { session: false }),async (req, res) => {
     try {
         //get the user
         let userId =req.params.userId
