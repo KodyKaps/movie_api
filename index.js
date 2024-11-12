@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const { check, validationResult } = require('express-validator');
 
 //load config
 require('dotenv').config()
@@ -27,10 +28,11 @@ const cors = require('cors');
 app.use(cors());
 let auth = require('./auth/auth')(app)
 
+
 //connect to database
-mongoose.connect(MONGO_URI)
-  .then(() => console.log("Connected to mongo db"))
-  .catch(err => console.error("Error connecting to mongo db", err))
+ mongoose.connect(MONGO_URI)
+.then(() => console.log("Connected to mongo db"))
+.catch(err => console.error("Error connecting to mongo db", err))
 
 //Define routes - requests I know how to handle
 
