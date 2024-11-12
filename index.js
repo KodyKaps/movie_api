@@ -23,6 +23,8 @@ const MONGO_URI = process.env.MONGO_URI
 //Apply middleware
 app.use(morgan('combined'));
 app.use(bodyParser.json())
+const cors = require('cors');
+app.use(cors());
 let auth = require('./auth/auth')(app)
 
 //connect to database
