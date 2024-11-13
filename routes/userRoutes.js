@@ -1,3 +1,4 @@
+const { check, validationResult } = require('express-validator');
 const express = require('express')
 const passport = require('passport');
 //load specific part of express
@@ -13,7 +14,13 @@ router.get('/', passport.authenticate('jwt', { session: false }),async (req, res
 })
 
 // Allow new users to register;
-router.post('/', async (req, res) => {
+router.post('/',  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], 
+  async (req, res) => {
     let hashedPassword = Users.hashPassword(req.body.Password);
     let userRequest = req.body
     console.log(userRequest)
