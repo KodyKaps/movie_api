@@ -21,6 +21,12 @@ router.post('/',  [
     check('Email', 'Email does not appear to be valid').isEmail()
   ], 
   async (req, res) => {
+    // check the validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     let hashedPassword = UserModel.hashPassword(req.body.Password);
     let userRequest = req.body
     console.log(userRequest)
