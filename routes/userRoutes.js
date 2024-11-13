@@ -14,11 +14,17 @@ router.get('/', passport.authenticate('jwt', { session: false }),async (req, res
 
 // Allow new users to register;
 router.post('/', async (req, res) => {
-    //TODO: get from req
+    let hashedPassword = Users.hashPassword(req.body.Password);
     let userRequest = req.body
     console.log(userRequest)
     try {
-        let u = await UserModel.create(userRequest)
+        let u = await UserModel
+        .create({
+          Username: req.body.Username,
+          Password: hashedPassword,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday
+        })
         console.log(u)
         let response = {
             message: "User created",
