@@ -23,7 +23,7 @@ const movies = [
 //use router insterad of app for clean code
 
 // Return a list of ALL movies to the user;
-router.get('/', async (req, res) => {
+router.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
     let movies = await MovieModel.find()
     res.send(movies)
 });
