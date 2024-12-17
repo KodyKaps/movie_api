@@ -13,6 +13,12 @@ router.get('/', passport.authenticate('jwt', { session: false }),async (req, res
     res.send(users)
 })
 
+router.get('/:userId', passport.authenticate('jwt', { session: false }),async (req, res) => {
+    let userId =req.params.userId
+    let user = await UserModel.findById(userId)
+    res.send(user)
+})
+
 // Allow new users to register;
 router.post('/',  [
     check('Username', 'Username is required').isLength({min: 5}),
@@ -52,6 +58,10 @@ router.post('/',  [
 });
 // Allow users to update their user info (username);
 router.put('/:userId', passport.authenticate('jwt', { session: false }),(req, res) => {
+    
+    //get the user
+    let userId =req.params.userId
+    
     res.send("some data");
 });
 
