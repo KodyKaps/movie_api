@@ -56,12 +56,13 @@ router.post('/',  [
     }
     
 });
+
 // Allow users to update their user info (username);
 router.put('/:userId', passport.authenticate('jwt', { session: false }),(req, res) => {
     
     //get the user
     let userId =req.params.userId
-    
+    //read from req.body and update the user object
     res.send("some data");
 });
 
