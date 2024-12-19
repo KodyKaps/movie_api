@@ -33,8 +33,8 @@ router.post('/',  [
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
-    let hashedPassword = UserModel.hashPassword(req.body.Password);
     let userRequest = req.body
+    let hashedPassword = UserModel.hashPassword(req.body.Password);
     console.log(userRequest)
     try {
         let u = await UserModel
@@ -58,12 +58,19 @@ router.post('/',  [
 });
 
 // Allow users to update their user info (username);
-router.put('/:userId', passport.authenticate('jwt', { session: false }),(req, res) => {
+router.put('/:userId', passport.authenticate('jwt', { session: false }),async (req, res) => {
     
     //get the user
     let userId =req.params.userId
-    //read from req.body and update the user object
-    res.send("some data");
+    try {
+        
+        let doc = await UserModel.findOneAndUpdate({_id: userId}, req.body)
+        //read from req.body and update the user object
+        res.send("user updated");
+    } catch (error) {
+        console.error(error)
+        res.status(500).send("Error updating user")
+    }
 });
 
 // Allow existing users to deregister (showing only a text that a user email has been removed—more on this later).
