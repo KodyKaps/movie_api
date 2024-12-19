@@ -99,7 +99,7 @@ router.post('/:userId/favorite-movies',passport.authenticate('jwt', { session: f
         //get the user
         let userId =req.params.userId
         console.log(`POST /users/${userId}/favorite-movies`, "req.body:",req.body)
-        let movieToAdd = req.body.name
+        let movieToAdd = req.body.movieId
         const addResult = await UserModel.findByIdAndUpdate(
             userId,
             { $push: {FavoriteMovies: movieToAdd}},
