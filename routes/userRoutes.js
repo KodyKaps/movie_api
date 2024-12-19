@@ -62,9 +62,12 @@ router.put('/:userId', passport.authenticate('jwt', { session: false }),async (r
     
     //get the user
     let userId =req.params.userId
+    let userRequest = req.body
+    let hashedPassword = UserModel.hashPassword(req.body.Password);
+    userRequest.password = hashedPassword
     try {
         
-        let doc = await UserModel.findOneAndUpdate({_id: userId}, req.body)
+        let doc = await UserModel.findOneAndUpdate({_id: userId}, userRequest)
         //read from req.body and update the user object
         res.send("user updated");
     } catch (error) {
@@ -117,12 +120,12 @@ router.post('/:userId/favorite-movies',passport.authenticate('jwt', { session: f
 });
 
 // Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later);
-router.delete('/:userId/favorite-movies', passport.authenticate('jwt', { session: false }),async (req, res) => {
+router.delete('/:userId/favorite-movies/:movieId', passport.authenticate('jwt', { session: false }),async (req, res) => {
     try {
         //get the user
         let userId =req.params.userId
-        console.log(`delete /users/${userId}/favorite-movies`, "req.body:",req.body)
-        let movieToRemove = req.body.name
+        let movieToRemove = req.params.movieId
+        console.log(`delete /users/${userId}/favorite-movies/${movieToRemove}`)
         const addResult = await UserModel.findByIdAndUpdate(
             userId,
             { $pull: {FavoriteMovies: movieToRemove}},
