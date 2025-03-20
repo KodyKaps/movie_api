@@ -1,3 +1,7 @@
+/**
+ * @module genreModel
+ * @description Model for genre
+*/
 const mongoose = require('mongoose');
 const genreSchema = new mongoose.Schema({
   name: {

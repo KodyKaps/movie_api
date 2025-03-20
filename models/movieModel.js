@@ -1,3 +1,8 @@
+/**
+ * @module movieModel
+ * @description Model for movie
+*/
+
 const mongoose = require('mongoose');
 
 let movieSchema = mongoose.Schema({

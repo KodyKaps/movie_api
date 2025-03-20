@@ -1,3 +1,7 @@
+/**
+ * @module directorModel
+ * @description Model for director
+*/
 const mongoose = require('mongoose');
 const directorSchema = new mongoose.Schema({
   name: {

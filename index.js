@@ -17,7 +17,7 @@ const directorRoutes = require('./routes/directorRoutes')
 //create an app instance
 const app = express();
 
-//define config
+/**define config*/
 const PORT = process.env.PORT;
 const MONGO_URI = process.env.MONGO_URI
 

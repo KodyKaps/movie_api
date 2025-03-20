@@ -1,0 +1,7 @@
+{
+    "source":{
+        "include": [".","routes","models","auth"],
+        "exclude": ["node_modules"],
+        "includePattern": ".js$"
+    }
+}

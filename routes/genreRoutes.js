@@ -1,3 +1,8 @@
+/**
+ * @module genreRoutes
+ * @description Routes for genres
+*/
+
 const express = require('express')
 const passport = require('passport');
 //load specific part of express

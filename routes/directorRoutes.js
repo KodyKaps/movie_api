@@ -1,3 +1,7 @@
+/**
+ * @module directorRoutes
+ * @description Routes for directors
+*/
 const querystring = require('node:querystring');
 const passport = require('passport');
 const express = require('express')

@@ -1,3 +1,8 @@
+/**
+ * @module userModel
+ * @description Model for user
+*/
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 let userSchema = mongoose.Schema({
